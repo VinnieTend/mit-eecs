@@ -1,7 +1,7 @@
 ####################
 ## EXAMPLE: for loops over strings
 ####################
-#s = "demo loops"
+#s = "iiiiuuuuu"
 #for index in range(len(s)):
 #    if s[index] == 'i' or s[index] == 'u':
 #        print("There is an i or u")
@@ -19,14 +19,11 @@
 #word = input("I will cheer for you! Enter a word: ")
 #times = int(input("Enthusiasm level (1-10): "))
 #
-#i = 0
-#while i < len(word):
-#    char = word[i]
+#for char in word:
 #    if char in an_letters:
 #        print("Give me an " + char + "! " + char)
 #    else:
 #        print("Give me a  " + char + "! " + char)
-#    i += 1
 #print("What does that spell?")
 #for i in range(times):
 #    print(word, "!!!")
@@ -66,8 +63,8 @@
 ## EXAMPLE: approximate cube root 
 ####################
 #cube = 27
-##cube = 8120601
-##cube = 10000
+#cube = 8120601
+#cube = 10000
 #epsilon = 0.1
 #guess = 0.0
 #increment = 0.01
@@ -87,25 +84,25 @@
 ####################
 ## EXAMPLE: bisection cube root (only positive cubes!)
 ####################
-#cube = 27
-##cube = 8120601
-## won't work with x < 1 because initial upper bound is less than ans
-##cube = 0.25
-#epsilon = 0.01
-#num_guesses = 0
-#low = 0
-#high = cube
-#guess = (high + low)/2.0
-#while abs(guess**3 - cube) >= epsilon:
-#    if guess**3 < cube:
-#        # look only in upper half search space
-#        low = guess
-#    else:
-#        # look only in lower half search space
-#        high = guess
-#    # next guess is halfway in search space
-#    guess = (high + low)/2.0
-#    num_guesses += 1
-#print('num_guesses =', num_guesses)
-#print(guess, 'is close to the cube root of', cube)
+cube = 27
+#cube = 8120601
+# won't work with x < 1 because initial upper bound is less than ans
+#cube = 0.25
+epsilon = 0.01
+num_guesses = 0
+low = 0
+high = cube
+guess = (high + low)/2.0
+while abs(guess**3 - cube) >= epsilon:
+    if guess**3 < cube:
+        # look only in upper half search space
+        low = guess
+    else:
+        # look only in lower half search space
+        high = guess
+    # next guess is halfway in search space
+    guess = (high + low)/2.0
+    num_guesses += 1
+print('num_guesses =', num_guesses)
+print(guess, 'is close to the cube root of', cube)
    
