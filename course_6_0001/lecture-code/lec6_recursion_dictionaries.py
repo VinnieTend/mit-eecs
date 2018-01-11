@@ -20,7 +20,7 @@ def Towers(n, fr, to, spare):
         Towers(1, fr, to, spare)
         Towers(n-1, spare, to, fr)
 
-#print(Towers(4, 'P1', 'P2', 'P3'))
+print(Towers(4, 'P1', 'P2', 'P3'))
 
 #####################################
 # EXAMPLE:  fibonacci
@@ -56,11 +56,11 @@ def isPalindrome(s):
 
     return isPal(toChars(s))
 
-#print(isPalindrome('eve'))
-#
-#print(isPalindrome('Able was I, ere I saw Elba'))
-#
-#print(isPalindrome('Is this a palindrome'))
+print(isPalindrome('eve'))
+
+print(isPalindrome('Able was I, ere I saw Elba'))
+
+print(isPalindrome('Is this a palindrome'))
 
 #####################################
 # EXAMPLE: using dictionaries
@@ -153,7 +153,7 @@ def words_often(freqs, minTimes):
             done = True
     return result
     
-#print(words_often(beatles, 5))
+print(words_often(beatles, 5))
 
 #####################################
 # EXAMPLE: comparing fibonacci using memoization
@@ -169,7 +169,9 @@ def fib(n):
         return fib(n-1) + fib(n-2)
 
 
-def fib_efficient(n, d):
+# My changes to allow default value for d
+# seem sless clunky since you usually just want to pass a number anyways
+def fib_efficient(n, d = {1:1, 2:2}):
     if n in d:
         return d[n]
     else:
@@ -180,9 +182,9 @@ def fib_efficient(n, d):
 d = {1:1, 2:2}
 
 argToUse = 34
-#print("")
-#print('using fib')
-#print(fib(argToUse))
-#print("")
-#print('using fib_efficient')
-#print(fib_efficient(argToUse, d))
+print("")
+print('using fib')
+print(fib(argToUse))
+print("")
+print('using fib_efficient')
+print(fib_efficient(argToUse, d))
