@@ -98,7 +98,7 @@ while abs(current_savings - total_cost*portion_down_payment) >= 100:
     for month in range(36):
         # With indexing starting a zero, we need to calculate at the beginning
         # of the loop.
-        if month % 6 == 0:
+        if month % 6 == 0 and month > 0:
             for_annual_salary += for_annual_salary*semi_annual_raise
         # Set monthly_salary inside loop where annual_salary is modified
         monthly_salary = for_annual_salary/12
