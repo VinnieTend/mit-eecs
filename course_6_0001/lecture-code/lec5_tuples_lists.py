@@ -56,10 +56,10 @@ print("From", min_year, "to", max_year, \
 ## EXAMPLE: sum of elements in a list
 #########################
 def sum_elem_method1(L):
-  total = 0 
-  for i in range(len(L)): 
-      total += L[i] 
-  return total
+    total = 0 
+    for i in range(len(L)): 
+        total += L[i] 
+    return total
   
 def sum_elem_method2(L):
     total = 0 
@@ -85,6 +85,8 @@ L.remove(2)
 L.remove(3)
 del(L[1])
 print(L.pop())
+print(L)
+
 
 s = "I<3 cs"
 print(list(s))
@@ -190,8 +192,8 @@ colors2 = [['blue', 'green'],
           ['red', 'yellow', 'orange']]
 print('colors2 =', colors2)
 
-warm.remove('red') 
-print('colors1 = ', colors1)
+warm.remove('red')
+print('colors1 =', colors1)
 print('colors2 =', colors2)
 
 for e in colors1:
