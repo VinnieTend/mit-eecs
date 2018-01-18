@@ -1,7 +1,7 @@
 # Problem Set 2, hangman.py
-# Name: 
-# Collaborators:
-# Time spent:
+# Name: Nicholas Geyer
+# Collaborators: None
+# Time spent: ~3 hours
 
 # Hangman Game
 # -----------------------------------
@@ -31,7 +31,6 @@ def load_words():
     wordlist = line.split()
     print("  ", len(wordlist), "words loaded.")
     return wordlist
-
 
 
 def choose_word(wordlist):
@@ -191,7 +190,6 @@ def hangman(secret_word):
 # -----------------------------------
 
 
-
 def match_with_gaps(my_word, other_word):
     '''
     my_word: string with _ characters, current guess of secret word
@@ -327,7 +325,6 @@ def hangman_with_hints(secret_word):
     score = guesses * len(set(secret_word))
     print('Congratulations, you won!')
     print('Your total score for this game is:', score)
-
 
 
 # When you've completed your hangman_with_hint function, comment the two similar
