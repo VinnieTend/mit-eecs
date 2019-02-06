@@ -91,9 +91,17 @@ def get_word_score(word, n):
     n: int >= 0
     returns: int >= 0
     """
+    if word == "":
+        return 0
     
-    pass  # TO DO... Remove this line when you implement this function
-
+    word = word.lower()
+    word_sum = 0
+    frequency_dict = get_frequency_dict(word)
+    for key, value in frequency_dict.items():
+        word_sum += SCRABBLE_LETTER_VALUES[key] * value
+    
+    score = word_sum * max(1, 7 * len(word) - 3 * (n - len(word)))
+    return score
 #
 # Make sure you understand how this function works and what it does!
 #
