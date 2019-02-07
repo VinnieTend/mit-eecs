@@ -3,9 +3,9 @@
 # The 6.0001 Word Game
 # Created by: Kevin Luu <luuk> and Jenna Wiens <jwiens>
 #
-# Name          : <your name>
-# Collaborators : <your collaborators>
-# Time spent    : <total time>
+# Name          : angelichorsey
+# Collaborators : none
+# Time spent    : ~4 hours
 
 import math
 import random
@@ -16,7 +16,7 @@ CONSONANTS = 'bcdfghjklmnpqrstvwxyz'
 HAND_SIZE = 7
 
 SCRABBLE_LETTER_VALUES = {
-    'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
+    '*': 0, 'a': 1, 'b': 3, 'c': 3, 'd': 2, 'e': 1, 'f': 4, 'g': 2, 'h': 4, 'i': 1, 'j': 8, 'k': 5, 'l': 1, 'm': 3, 'n': 1, 'o': 1, 'p': 3, 'q': 10, 'r': 1, 's': 1, 't': 1, 'u': 1, 'v': 4, 'w': 4, 'x': 8, 'y': 4, 'z': 10
 }
 
 # -----------------------------------
@@ -141,10 +141,10 @@ def deal_hand(n):
     returns: dictionary (string -> int)
     """
     
-    hand={}
+    hand={'*': 1}
     num_vowels = int(math.ceil(n / 3))
 
-    for i in range(num_vowels):
+    for i in range(num_vowels - 1):
         x = random.choice(VOWELS)
         hand[x] = hand.get(x, 0) + 1
     
@@ -176,7 +176,13 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
 
-    pass  # TO DO... Remove this line when you implement this function
+    new_hand = hand.copy()
+
+    for letter in word.lower():
+        if letter in new_hand and new_hand[letter] > 0:
+            new_hand[letter] = new_hand[letter] - 1
+            
+    return new_hand
 
 #
 # Problem #3: Test word validity
@@ -193,8 +199,20 @@ def is_valid_word(word, hand, word_list):
     returns: boolean
     """
 
-    pass  # TO DO... Remove this line when you implement this function
-
+    word = word.lower()
+    test_hand = hand.copy()
+    is_word = False
+    if '*' in word and test_hand['*'] > 0:
+        for vowel in VOWELS:
+            if word.replace('*', vowel) in word_list:
+                is_word = True
+    if word in word_list or is_word:
+        for letter in word:
+            if letter in test_hand and test_hand[letter] > 0:
+                test_hand[letter] = test_hand[letter] - 1
+            else:
+                return False
+        return True
 #
 # Problem #5: Playing a hand
 #
@@ -206,7 +224,10 @@ def calculate_handlen(hand):
     returns: integer
     """
     
-    pass  # TO DO... Remove this line when you implement this function
+    handlen = 0
+    for key, value in hand.items():
+        handlen += value
+    return handlen
 
 def play_hand(hand, word_list):
 
@@ -241,37 +262,40 @@ def play_hand(hand, word_list):
     
     # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
     # Keep track of the total score
-    
+    total_score = 0
     # As long as there are still letters left in the hand:
-    
+    while calculate_handlen(hand) > 0:
         # Display the hand
-        
+        print("Current Hand:", end=' '); display_hand(hand)
         # Ask user for input
-        
+        word = input('Enter word, or "!!" to indicate that you are finished: ')
         # If the input is two exclamation points:
-        
+        if word == "!!":
             # End the game (break out of the loop)
-
-            
+            break
         # Otherwise (the input is not two exclamation points):
-
+        else:
             # If the word is valid:
-
+            if is_valid_word(word, hand, word_list):
                 # Tell the user how many points the word earned,
                 # and the updated total score
-
+                word_score = get_word_score(word, calculate_handlen(hand))
+                total_score += word_score
+                print('"{}" earned {} points. Total: {} points'.format(
+                        word, word_score, total_score))
             # Otherwise (the word is not valid):
+            else:
                 # Reject invalid word (print a message)
-                
+                print("That is not a valid word. Please choose another word")
             # update the user's hand by removing the letters of their inputted word
-            
-
+            hand = update_hand(hand, word)
     # Game is over (user entered '!!' or ran out of letters),
     # so tell user the total score
-
+    if calculate_handlen(hand) == 0:
+        print("Ran out of letters")
+    print("Total score for this hand: {}".format(total_score))
     # Return the total score as result of function
-
-
+    return total_score
 
 #
 # Problem #6: Playing a game
@@ -305,8 +329,16 @@ def substitute_hand(hand, letter):
     returns: dictionary (string -> int)
     """
     
-    pass  # TO DO... Remove this line when you implement this function
-       
+    available_letters = VOWELS + CONSONANTS
+    new_hand = hand.copy()
+    if hand.get(letter, 0) > 0:
+        new_hand[letter] = 0
+        for key, value in hand.items():
+            if value > 0:
+                available_letters.replace(key, '')
+        sub = random.choice(available_letters)
+        new_hand[sub] = hand[letter]
+    return new_hand
     
 def play_game(word_list):
     """
@@ -339,9 +371,24 @@ def play_game(word_list):
     word_list: list of lowercase strings
     """
     
-    print("play_game not implemented.") # TO DO... Remove this line when you implement this function
-    
-
+    game_score = 0
+    num_hands = int(input("Enter total number of hands: "))
+    while num_hands > 0:
+        hand = deal_hand(HAND_SIZE)
+        print("Current hand: ", end=' ')
+        display_hand(hand)
+        sub_choice = input("Would you like to substitute a letter? ")
+        if sub_choice.lower() == "yes":
+            letter = input("Which letter would you like to replace: ")
+            hand = substitute_hand(hand, letter)
+        hand_score = play_hand(hand, word_list)
+        print("-" * 10)
+        replay = input("Would you like to replay the hand? ")
+        if replay.lower() == "yes":
+            hand_score = play_hand(hand, word_list)
+        game_score += hand_score
+        num_hands -= 1
+    print("Total score over all hands: {}".format(game_score))
 
 #
 # Build data structures used for entire session and play game
