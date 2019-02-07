@@ -260,7 +260,6 @@ def play_hand(hand, word_list):
       
     """
     
-    # BEGIN PSEUDOCODE <-- Remove this comment when you implement this function
     # Keep track of the total score
     total_score = 0
     # As long as there are still letters left in the hand:
