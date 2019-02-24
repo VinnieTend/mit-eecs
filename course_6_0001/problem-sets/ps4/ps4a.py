@@ -1,7 +1,7 @@
 # Problem Set 4A
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
+# Name: angelichorsey
+# Collaborators: None
+# Time Spent: like 5 hours, jeez recursion can be tricky
 
 def get_permutations(sequence):
     '''
@@ -23,7 +23,17 @@ def get_permutations(sequence):
     a different order than what is listed here.
     '''
 
-    pass #delete this line and replace with your code here
+    if len(sequence) == 1:
+        return [sequence]
+    else:
+        permutations = []
+        for permutation in get_permutations(sequence[1:]):
+            for i in range(len(permutation)+1):
+                permutations.append(permutation[:i] + sequence[:1] \
+                                    +permutation[i:])
+        return permutations
+        # could also return without duplicates
+        #return list(set(permutations))
 
 if __name__ == '__main__':
 #    #EXAMPLE
@@ -35,6 +45,18 @@ if __name__ == '__main__':
 #    # Put three example test cases here (for your sanity, limit your inputs
 #    to be three characters or fewer as you will have n! permutations for a 
 #    sequence of length n)
+    
+    example_input = 'yo'
+    print('Input:', example_input)
+    print('Expected Output:', ['yo', 'oy'])
+    print('Actual Output:', get_permutations(example_input))
+    
+    example_input = 'wat'
+    print('Input:', example_input)
+    print('Expected Output:', ['wat', 'wta', 'twa', 'taw', 'awt', 'atw'])
+    print('Actual Output:', get_permutations(example_input))
 
-    pass #delete this line and replace with your code here
-
+    example_input = 'rrr'
+    print('Input:', example_input)
+    print('Expected Output:', ['rrr']*6)
+    print('Actual Output:', get_permutations(example_input))
