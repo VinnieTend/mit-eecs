@@ -23,10 +23,19 @@ def get_permutations(sequence):
     a different order than what is listed here.
     '''
 
+#   base case as a single character only has 1 permutation
     if len(sequence) == 1:
         return [sequence]
     else:
         permutations = []
+        
+#       I need to determine what it means programmatically to have the
+#       recursive case to be the iterations of a loop.
+#         
+#       strip the sequence's first character and return its permutations to
+#       loop through
+        
+#       really need to come back to this to see how I can explain it...
         for permutation in get_permutations(sequence[1:]):
             for i in range(len(permutation)+1):
                 permutations.append(permutation[:i] + sequence[:1] \
