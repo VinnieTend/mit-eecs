@@ -1,7 +1,7 @@
 # Problem Set 4B
 # Name: angelichorsey
 # Collaborators: none
-# Time Spent: 2018-04-17 10:00 
+# Time Spent: 2018-04-17 10:00-12:15
 
 import string
 
@@ -237,7 +237,7 @@ class CiphertextMessage(Message):
                     num_words += 1
             if num_words > max_words:
                 max_words = num_words
-                best_value = (i, decrypted_text)
+                best_value = (26 - i, decrypted_text)
                 
         return best_value
             
